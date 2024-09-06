@@ -1,11 +1,14 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
+import { dbConnect } from "./config/mongoose.js";
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+
+dbConnect();
 
 app.use((err: Error, req: Request, res: Response) => {
     console.error(err.stack);
