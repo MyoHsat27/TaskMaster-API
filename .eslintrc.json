@@ -1,0 +1,24 @@
+{
+    "env": {
+        "es2020": true
+    },
+    "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "eslint-recommended"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-console": "off",
+        "prettier/prettier": "error",
+        "@typescript/eslint/no-unused-vars": "off",
+        "@typescript/eslint/no-unused-params": "off"
+    },
+    "overrides": [
+        {
+            "files": ["src/test/**/*.ts"],
+            "env": { "jest": true, "node": true },
+            "extends": ["plugin:jest/recommended"]
+        }
+    ]
+}
