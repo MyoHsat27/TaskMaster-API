@@ -2,7 +2,7 @@ import { ZodEffects, ZodError, ZodIssue, ZodObject, ZodRawShape } from "zod";
 
 export const formatZodError = (error: ZodError) => {
     const { issues } = error;
-    let errorObj: Record<string, string> = {};
+    const errorObj: Record<string, string> = {};
 
     issues.forEach((issue: ZodIssue) => {
         const { path, message } = issue;

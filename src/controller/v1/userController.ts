@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { signUpValidation } from "../../validations/signup.js";
 import { validate } from "../../utils/zodValidation.js";
-import { HttpBadRequestHandler } from "../../utils/httpResponseHandler.js";
+import { HttpBadRequestHandler, HttpCreatedHandler } from "../../utils/httpResponseHandler.js";
 import { userService } from "../../services/v1/userService.js";
-import { hashPassword } from "../../utils/passwordManager";
+import { hashPassword } from "../../utils/passwordManager.js";
 
 const { findOne, create } = userService();
+
 export const userController = () => {
     const login = async (req: Request, res: Response) => {};
 
@@ -25,6 +26,16 @@ export const userController = () => {
             if (user) {
                 return HttpBadRequestHandler(res, "user already exists");
             }
+
+            // Register new user
+            const hashedPassword = await hashPassword(password);
+
+            await create({ username, email, password: hashedPassword });
+
+            return HttpCreatedHandler(res, {
+                responseMessage: "User created successfully",
+                success: true
+            });
         } catch (error: any) {
             return HttpBadRequestHandler(res, { error: error.message });
         }
