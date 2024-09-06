@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import { dbConnect } from "./config/mongoose.js";
-import v1Routes from "./routes/v1/index";
+import v1Routes from "./routes/v1/index.js";
 
 dotenv.config();
 

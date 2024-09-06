@@ -4,6 +4,7 @@ import { validate } from "../../utils/zodValidation.js";
 import { HttpBadRequestHandler, HttpCreatedHandler } from "../../utils/httpResponseHandler.js";
 import { userService } from "../../services/v1/userService.js";
 import { hashPassword } from "../../utils/passwordManager.js";
+import { handleError } from "../../utils/errorHandler.js";
 
 const { findOne, create } = userService();
 
@@ -36,8 +37,8 @@ export const userController = () => {
                 responseMessage: "User created successfully",
                 success: true
             });
-        } catch (error: any) {
-            return HttpBadRequestHandler(res, { error: error.message });
+        } catch (error: unknown) {
+            handleError(res, error);
         }
     };
     return { register, login };
