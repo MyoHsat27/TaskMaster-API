@@ -14,7 +14,7 @@
             }
         }
     },
-    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2020,
@@ -25,7 +25,6 @@
         "import/no-named-as-default-member": "off",
         "import/no-unresolved": "error",
         "no-console": "off",
-        "prettier/prettier": "warn",
         "@typescript-eslint/no-unused-vars": "error",
         "@typescript-eslint/no-explicit-any": "error",
         "import/extensions": [

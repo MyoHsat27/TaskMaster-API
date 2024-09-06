@@ -1,17 +1,18 @@
 import mongoose from "mongoose";
+import logger from "./logger.js";
 
 mongoose.set("strictPopulate", false);
 
 export async function dbConnect() {
     try {
-        mongoose.connect(process.env.MONGO_URL!);
+        await mongoose.connect(process.env.MONGO_URL!);
         const connection = mongoose.connection;
         connection.on("connected", () => {
-            console.log("mongodb connected successfully");
+            logger.info("DB Connected");
         });
 
         connection.on("error", (err) => {
-            console.log("MongoDB connection error" + err);
+            logger.error("MongoDB connection error" + err);
             process.exit();
         });
     } catch (error) {

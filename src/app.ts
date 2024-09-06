@@ -1,25 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
-import dotenv from "dotenv";
-import { dbConnect } from "./config/mongoose.js";
-import v1Routes from "./routes/v1/index.js";
+import createServer from "./server.js";
 
-dotenv.config();
+const PORT = process.env.PORT || 3000;
 
-const app = express();
+const app = createServer();
 
-app.use(express.json());
-
-dbConnect();
-
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack);
-    res.status(500).send("Something went wrong");
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
-
-app.use("/api/v1", v1Routes);
-
-app.use("/test", (req: Request, res: Response) => {
-    res.send(" Myo Hsat Nanda - Open Heaven");
-});
-
-export default app;

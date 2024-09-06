@@ -7,5 +7,9 @@ export default {
     extensionsToTreatAsEsm: [".ts"],
     transform: {
         "^.+\\.ts$": ["ts-jest", { useESM: true }]
-    }
+    },
+    testMatch: ["<rootDir>/src/**/*.test.ts"],
+    verbose: true,
+    forceExit: true,
+    clearMocks: true
 };
