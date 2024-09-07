@@ -20,7 +20,7 @@ const isAuthenticate = async (req: Request, res: Response, next: NextFunction) =
 
         res.locals.user = user; // Attach the user to res.locals
         next();
-    } catch (error) {
+    } catch {
         return HttpUnauthorizedHandler(res, "Unauthorized");
     }
 };

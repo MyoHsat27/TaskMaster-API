@@ -1,7 +1,7 @@
-export interface PaginateQuery {
+export interface PaginateQuery<T = Record<string, unknown>> {
     page?: number;
     limit?: number;
-    filters?: Record<string, any>;
+    filters?: T;
     sortBy?: string;
     order?: "desc" | "asc";
 }

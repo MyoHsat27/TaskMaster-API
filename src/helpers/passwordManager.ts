@@ -1,12 +1,13 @@
 import bcryptjs from "bcryptjs";
+import { throwError } from "./errorHandler.js";
 
-export const hashPassword = async (password: string) => {
+export const hashPassword = async (password: string): Promise<string> => {
     try {
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
         return hashedPassword;
-    } catch (error: any) {
-        throw new Error(error);
+    } catch (error) {
+        throwError(error);
     }
 };
 

@@ -15,7 +15,7 @@ export const generateRefreshToken = (tokenData: RefreshTokenData, options?: json
 export const decodeAuthToken = (jwtToken: string) => {
     try {
         return jsonwebtoken.verify(jwtToken, process.env.JWT_SECRET!) as AuthTokenData;
-    } catch (error: any) {
+    } catch {
         throw new Error("Unauthorized");
     }
 };
@@ -23,7 +23,7 @@ export const decodeAuthToken = (jwtToken: string) => {
 export const decodeRefreshToken = (refreshToken: string): RefreshTokenData => {
     try {
         return jsonwebtoken.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!) as RefreshTokenData;
-    } catch (error: any) {
+    } catch {
         throw new Error("Invalid refresh token");
     }
 };

@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
-import { TaskPriorityType } from "../enums/task";
+import { throwError } from "./errorHandler";
 
 export const transformToObjectId = (id: string): mongoose.Types.ObjectId => {
     try {
         return new mongoose.Types.ObjectId(id);
-    } catch (error: any) {
-        throw new Error(error);
+    } catch (error) {
+        throwError(error);
     }
 };
 

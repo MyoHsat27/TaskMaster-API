@@ -1,5 +1,6 @@
-import mongoose, { Document, Model } from "mongoose";
-import { PaginateQuery, PaginateResult } from "../types/paginate";
+import { Document, Model } from "mongoose";
+import { PaginateQuery, PaginateResult } from "../types/paginate.js";
+import { throwError } from "./errorHandler.js";
 
 /**
  * Paginates and filters data based on query parameters for any model.
@@ -7,7 +8,10 @@ import { PaginateQuery, PaginateResult } from "../types/paginate";
  * @param query - The query object containing filters and pagination info.
  * @returns A promise that resolves to an object containing paginated data and pagination info.
  */
-export async function paginator<T extends Document>(model: Model<T>, query: PaginateQuery): Promise<PaginateResult<T>> {
+export async function paginator<T extends Document>(
+    model: Model<T>,
+    query: PaginateQuery<Record<string, unknown>>
+): Promise<PaginateResult<T>> {
     const { page = 1, limit = 10, filters = {}, sortBy = "createdAt", order = "asc" } = query;
 
     // Convert page and limit to numbers
@@ -18,9 +22,9 @@ export async function paginator<T extends Document>(model: Model<T>, query: Pagi
     const skip = (pageNumber - 1) * pageSize;
 
     // Build the filter query
-    const filterQuery: Record<string, any> = { ...filters };
+    const filterQuery: Record<string, unknown> = { ...filters };
 
-    if (filters.title) {
+    if (typeof filters.title === "string") {
         filterQuery.title = { $regex: new RegExp(filters.title, "i") };
     }
 
@@ -48,7 +52,7 @@ export async function paginator<T extends Document>(model: Model<T>, query: Pagi
                 limit: pageSize
             }
         };
-    } catch (error: any) {
-        throw new Error(`Error retrieving data: ${error.message}`);
+    } catch (error) {
+        throwError(error);
     }
 }

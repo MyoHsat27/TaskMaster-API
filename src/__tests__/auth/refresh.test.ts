@@ -13,7 +13,7 @@ describe("POST /auth/refresh", () => {
 
     beforeAll(async () => {
         await User.deleteMany({});
-        const user = await User.create({
+        await User.create({
             email: "testuser@example.com",
             username: "testuser",
             password: await passwordManager.hashPassword("ValidPassword123!"),

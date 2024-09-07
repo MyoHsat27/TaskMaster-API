@@ -5,6 +5,7 @@ import { paginator } from "../../helpers/paginator.js";
 import mongoose from "mongoose";
 import { throwError } from "../../helpers/errorHandler.js";
 import Task from "../../models/task.js";
+import { TaskFilters } from "../../types/task.js";
 
 export const getTaskByUserIdAndTitle = async (userId: mongoose.Types.ObjectId, title: string) => {
     try {
@@ -34,7 +35,10 @@ export const getTaskByTitle = async (title: string) => {
     }
 };
 
-export const getTasks = async (userId: string, query: PaginateQuery): Promise<PaginateResult<TaskObject>> => {
+export const getTasks = async (
+    userId: string,
+    query: PaginateQuery<TaskFilters>
+): Promise<PaginateResult<TaskObject>> => {
     try {
         const filters = {
             ...query.filters,
@@ -43,7 +47,6 @@ export const getTasks = async (userId: string, query: PaginateQuery): Promise<Pa
         return await paginator(Task, { ...query, filters });
     } catch (error) {
         throwError(error);
-        return Promise.reject(error);
     }
 };
 

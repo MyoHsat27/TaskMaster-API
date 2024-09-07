@@ -25,3 +25,9 @@ export interface TaskUpdateObject {
     status: string;
     priority: string;
 }
+
+export interface TaskFilters {
+    title?: string;
+    status?: string;
+    priority?: number;
+}

@@ -12,7 +12,9 @@ function createServer() {
     app.use(express.json());
     app.use(cookieParser());
 
-    app.use((err: Error, req: Request, res: Response, __next: NextFunction) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
+        // _next is required by the Express error-handling middleware
         logger.error(err.stack);
         res.status(500).send("Something went wrong");
     });
