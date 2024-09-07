@@ -7,8 +7,8 @@ import { create, findOne } from "../../services/v1/userService.js";
 import { hashPassword, comparePassword } from "../../utils/passwordManager.js";
 import logger from "../../utils/logger.js";
 import { handleError } from "../../utils/errorHandler.js";
-import { generateJWT, generateRefreshToken } from "../../utils/jwtManager.js";
-import { refreshToken } from "./authController";
+import { generateAuthToken, generateRefreshToken } from "../../utils/jwtManager.js";
+import { AuthTokenData } from "../../types/token.js";
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -67,19 +67,18 @@ export const login = async (req: Request, res: Response) => {
         }
 
         // Generate tokens
-        const tokenData = {
+        const authTokenData: AuthTokenData = {
             _id: user._id,
             username: user.username,
             email: user.email
         };
-
-        const jwtToken = generateJWT(tokenData);
-        const refreshToken = generateRefreshToken(user._id.toString());
+        const authToken = generateAuthToken(authTokenData);
+        const refreshToken = generateRefreshToken({ _id: user._id });
         user.refreshToken = refreshToken;
         await user.save();
 
         // Set tokens into cookies
-        res.cookie("authToken", jwtToken, {
+        res.cookie("authToken", authToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             maxAge: 24 * 60 * 60 * 1000 // 1 day

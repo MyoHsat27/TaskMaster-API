@@ -3,29 +3,31 @@ import { HttpBadRequestHandler, HttpCreatedHandler } from "../../utils/httpRespo
 import { findOneById } from "../../services/v1/userService.js";
 import logger from "../../utils/logger.js";
 import { handleError } from "../../utils/errorHandler.js";
-import { generateJWT, generateRefreshToken, verifyRefreshToken } from "../../utils/jwtManager.js";
+import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../../utils/jwtManager.js";
 
 export const refreshToken = async (req: Request, res: Response) => {
     try {
-        const { refreshToken } = req.cookies;
+        const { refreshToken: existingRefreshToken } = req.cookies;
 
-        if (!refreshToken) {
+        if (!existingRefreshToken) {
             return HttpBadRequestHandler(res, "No refresh token provided");
         }
 
-        const decoded: any = verifyRefreshToken(refreshToken);
-        const user = await findOneById(decoded);
-        if (!user || user.refreshToken !== refreshToken) {
+        // Decode the refresh token to extract user ID
+        const { _id } = decodeRefreshToken(existingRefreshToken);
+        const user = await findOneById(_id);
+        if (!user || user.refreshToken !== existingRefreshToken) {
             return HttpBadRequestHandler(res, "Invalid refresh token");
         }
 
-        const newJWT = generateJWT({ _id: user._id, username: user.username, email: user.email });
-        const newRefreshToken = generateRefreshToken(user._id.toString());
-
+        // Generate new JWT and refresh tokens
+        const newAuthToken = generateAuthToken({ _id: user._id, username: user.username, email: user.email });
+        const newRefreshToken = generateRefreshToken({ _id: user._id });
         user.refreshToken = newRefreshToken;
-        user.save();
+        await user.save();
 
-        res.cookie("authToken", newJWT, {
+        // Set new tokens in cookies
+        res.cookie("authToken", newAuthToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             maxAge: 24 * 60 * 60 * 1000 // 1 day

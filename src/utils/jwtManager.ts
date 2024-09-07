@@ -1,31 +1,28 @@
 import jsonwebtoken from "jsonwebtoken";
-import logger from "./logger.js";
+import { AuthTokenData, RefreshTokenData } from "../types/token.js";
 
-export const generateJWT = (tokenData: object, options?: jsonwebtoken.SignOptions) => {
+export const generateAuthToken = (tokenData: AuthTokenData, options?: jsonwebtoken.SignOptions) => {
     return jsonwebtoken.sign(tokenData, process.env.JWT_SECRET!, {
         expiresIn: process.env.JWT_TTL!,
         ...(options && options)
     });
 };
 
-export const generateRefreshToken = (tokenData: object, options?: jsonwebtoken.SignOptions) => {
-    return jsonwebtoken.sign(tokenData, process.env.REFRESH_TOKEN_SECRET!, {
-        expiresIn: process.env.JWT_TTL!,
-        ...(options && options)
-    });
+export const generateRefreshToken = (tokenData: RefreshTokenData, options?: jsonwebtoken.SignOptions) => {
+    return jsonwebtoken.sign(tokenData, process.env.REFRESH_TOKEN_SECRET!);
 };
 
-export const getDataFromToken = (jwtToken: string) => {
+export const decodeAuthToken = (jwtToken: string) => {
     try {
-        return jsonwebtoken.verify(jwtToken, process.env.JWT_SECRET!);
+        return jsonwebtoken.verify(jwtToken, process.env.JWT_SECRET!) as AuthTokenData;
     } catch (error: any) {
         throw new Error("Unauthorized");
     }
 };
 
-export const verifyRefreshToken = (refreshToken: string) => {
+export const decodeRefreshToken = (refreshToken: string): RefreshTokenData => {
     try {
-        return jsonwebtoken.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!);
+        return jsonwebtoken.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!) as RefreshTokenData;
     } catch (error: any) {
         throw new Error("Invalid refresh token");
     }
