@@ -15,7 +15,7 @@ export const findOne = async (param: Record<string, string>) => {
 
 export const findOneById = async (id: string) => {
     try {
-        let userObjectId = transformToObjectId(id, "wallet not found");
+        const userObjectId = transformToObjectId(id);
         return await User.findOne({ _id: userObjectId });
     } catch (error: any) {
         throw new Error(error);
