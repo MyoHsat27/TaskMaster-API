@@ -1,18 +1,24 @@
 import User from "../../models/user.js";
 import { UserCreateObject } from "../../types/user.js";
 
-export const userService = () => {
-    const findOne = async (param: Record<string, string>) => {
-        const user = await User.findOne(param);
+export const findOne = async (param: Record<string, string>) => {
+    try {
+        const user = await User.findOne({
+            $or: [{ email: param.email }, { username: param.username }]
+        });
         return user;
-    };
+    } catch (error: any) {
+        throw new Error(error);
+    }
+};
 
-    const create = (user: UserCreateObject) => {
+export const create = async (user: UserCreateObject) => {
+    try {
         const newUser = new User(user);
-        const savedUser = newUser.save();
+        const savedUser = await newUser.save();
 
         return savedUser;
-    };
-
-    return { findOne, create };
+    } catch (error: any) {
+        throw new Error(error);
+    }
 };

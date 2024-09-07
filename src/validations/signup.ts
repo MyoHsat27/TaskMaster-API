@@ -2,11 +2,11 @@ import { z } from "zod";
 
 export const signUpValidation = z
     .object({
-        username: z.string({ message: "require username" }),
-        email: z.string({ message: "require email" }).email({ message: "format is wrong" }),
+        username: z.string({ message: "Require username" }),
+        email: z.string({ message: "Require email" }).email({ message: "Incorrect format" }),
         password: z
-            .string({ message: "require password" })
-            .min(6, "password required at least 6 character")
+            .string({ message: "Require password" })
+            .min(6, "Password required at least 6 character")
             .max(20, "Password must be at most 20 characters long")
             .regex(/^(?=.*[a-z])/, "Password must contain at least one lowercase letter")
             .regex(/^(?=.*[A-Z])/, "Password must contain at least one uppercase letter")

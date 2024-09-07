@@ -1,10 +1,10 @@
 import { Response } from "express";
-import { HttpBadRequestHandler } from "./httpResponseHandler";
+import { HttpInternalServerErrorHandler } from "./httpResponseHandler";
 
 export function handleError(res: Response, error: unknown): void {
     if (error instanceof Error) {
-        HttpBadRequestHandler(res, { error: error.message });
+        HttpInternalServerErrorHandler(res, { error: error.message });
     } else {
-        HttpBadRequestHandler(res, { error: "Unknown error occurred" });
+        HttpInternalServerErrorHandler(res, { error: "Unknown error occurred" });
     }
 }
