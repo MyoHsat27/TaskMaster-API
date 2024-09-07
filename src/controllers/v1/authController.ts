@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { HttpBadRequestHandler, HttpCreatedHandler } from "../../utils/httpResponseHandler.js";
+import { HttpBadRequestHandler, HttpCreatedHandler } from "../../helpers/httpResponseHandler.js";
 import { findOneById } from "../../services/v1/userService.js";
-import logger from "../../utils/logger.js";
-import { handleError } from "../../utils/errorHandler.js";
-import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../../utils/jwtManager.js";
+import logger from "../../helpers/logger.js";
+import { handleError } from "../../helpers/errorHandler.js";
+import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../../helpers/jwtManager.js";
 
 export const refreshToken = async (req: Request, res: Response) => {
     try {

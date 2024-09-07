@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { signUpValidation } from "../../validations/signup.js";
 import { signInValidation } from "../../validations/signin.js";
-import { validate } from "../../utils/zodValidation.js";
-import { HttpBadRequestHandler, HttpCreatedHandler } from "../../utils/httpResponseHandler.js";
+import { validate } from "../../helpers/zodValidation.js";
+import { HttpBadRequestHandler, HttpCreatedHandler } from "../../helpers/httpResponseHandler.js";
 import { create, findOne } from "../../services/v1/userService.js";
-import { hashPassword, comparePassword } from "../../utils/passwordManager.js";
-import logger from "../../utils/logger.js";
-import { handleError } from "../../utils/errorHandler.js";
-import { generateAuthToken, generateRefreshToken } from "../../utils/jwtManager.js";
+import { hashPassword, comparePassword } from "../../helpers/passwordManager.js";
+import logger from "../../helpers/logger.js";
+import { handleError } from "../../helpers/errorHandler.js";
+import { generateAuthToken, generateRefreshToken } from "../../helpers/jwtManager.js";
 import { AuthTokenData } from "../../types/token.js";
 
 export const register = async (req: Request, res: Response) => {

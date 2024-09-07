@@ -18,10 +18,8 @@ export async function paginate<T extends Document>(model: Model<T>, query: Pagin
     const skip = (pageNumber - 1) * pageSize;
 
     try {
-        // Query the database with filters and pagination
         const data = await model.find(filters).skip(skip).limit(pageSize).exec();
 
-        // Get the total count of filtered documents
         const totalItems = await model.countDocuments(filters).exec();
 
         return {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import logger from "./logger.js";
+import logger from "../helpers/logger.js";
 
 mongoose.set("strictPopulate", false);
 

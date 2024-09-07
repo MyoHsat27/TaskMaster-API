@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import logger from "../../utils/logger.js";
-import { handleError } from "../../utils/errorHandler.js";
+import logger from "../../helpers/logger.js";
+import { handleError } from "../../helpers/errorHandler.js";
 
 export const getAllTasks = async (req: Request, res: Response) => {
     try {

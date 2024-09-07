@@ -1,5 +1,5 @@
 import createServer from "./server.js";
-import logger from "./utils/logger.js";
+import logger from "./helpers/logger.js";
 import { dbConnect } from "./utils/mongoose.js";
 
 const PORT = process.env.PORT || 3000;
