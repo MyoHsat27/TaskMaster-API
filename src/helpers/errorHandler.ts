@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { HttpInternalServerErrorHandler } from "./httpResponseHandler";
+import { HttpInternalServerErrorHandler } from "./httpResponseHandler.js";
 
 export function sendErrorResponse(res: Response, error: unknown): void {
     if (error instanceof Error) {

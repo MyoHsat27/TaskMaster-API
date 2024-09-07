@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { HttpStatus } from "../enums/httpStatus";
+import { HttpStatus } from "../enums/httpStatus.js";
 
 function transformMessage(message: string | object) {
     if (typeof message === "string") {

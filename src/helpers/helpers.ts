@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
-import { throwError } from "./errorHandler";
+import { throwError } from "./errorHandler.js";
 
 export const transformToObjectId = (id: string): mongoose.Types.ObjectId => {
     try {
