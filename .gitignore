@@ -1,5 +1,8 @@
 node_modules
+coverage
 dist
 package-lock.json
 .env
+src/logs/*.log
+
 

@@ -1,23 +1,44 @@
 {
     "env": {
-        "es2020": true
+        "es2020": true,
+        "node": true,
+        "jest": true
     },
-    "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "eslint-recommended"],
+    "settings": {
+        "import/resolver": {
+            "typescript": {
+                "alwaysTryTypes": true
+            },
+            "node": {
+                "extensions": [".js", ".ts", ".jsx", ".tsx"]
+            }
+        }
+    },
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2020,
         "sourceType": "module"
     },
+    "plugins": ["@typescript-eslint", "import"],
     "rules": {
+        "import/no-named-as-default-member": "off",
+        "import/no-unresolved": "error",
         "no-console": "off",
-        "prettier/prettier": "error",
-        "@typescript/eslint/no-unused-vars": "off",
-        "@typescript/eslint/no-unused-params": "off"
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-explicit-any": "error",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "ts": "never"
+            }
+        ]
     },
     "overrides": [
         {
             "files": ["src/test/**/*.ts"],
-            "env": { "jest": true, "node": true },
             "extends": ["plugin:jest/recommended"]
         }
     ]

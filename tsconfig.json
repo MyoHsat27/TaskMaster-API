@@ -19,7 +19,7 @@
         "preserveSymlinks": true
     },
     "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"],
+    "exclude": ["node_modules", "tsconfig.build.json", "tsconfig.json"],
     "ts-node": {
         "esm": true,
         "experimentalSpecifierResolution": "node"
