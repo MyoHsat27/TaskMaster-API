@@ -1,6 +1,6 @@
 import Task from "../../models/task.js";
 import { TaskCreateObject } from "../../types/task.js";
-import { transformToObjectId } from "../../helpers/helper.js";
+import { transformToObjectId } from "../../helpers/mongoHelper.js";
 
 export const getTaskById = async (id: string) => {
     try {

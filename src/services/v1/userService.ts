@@ -1,6 +1,6 @@
 import User from "../../models/user.js";
 import { UserCreateObject } from "../../types/user.js";
-import { transformToObjectId } from "../../helpers/helper.js";
+import { transformToObjectId } from "../../helpers/mongoHelper.js";
 
 export const findOne = async (param: Record<string, string>) => {
     try {

@@ -4,6 +4,7 @@ import { handleError } from "../../utils/errorHandler.js";
 
 export const getAllTasks = async (req: Request, res: Response) => {
     try {
+        res.send(req.query);
     } catch (error: unknown) {
         logger.error(error);
         handleError(res, error);
