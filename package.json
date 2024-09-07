@@ -12,7 +12,7 @@
         "lint:fix": "eslint src/**/*.ts --fix",
         "format": "prettier --write src/**/*.ts",
         "pretest": "npm run lint && tsc -p tsconfig.json --noEmit",
-        "test": "jest --verbose --coverage",
+        "test": "jest",
         "test:watch": "jest --watch",
         "docker:build": "docker-compose build",
         "docker:up": "docker-compose up",
