@@ -22,3 +22,10 @@ export const create = async (user: UserCreateObject) => {
         throw new Error(error);
     }
 };
+
+export const updateRefreshToken = async (userId: string, refreshToken: string) => {
+    return User.findByIdAndUpdate(userId, {
+        refreshToken,
+        refreshTokenExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+    });
+};

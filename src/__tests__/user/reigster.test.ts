@@ -1,7 +1,7 @@
 import request from "supertest";
 import createServer from "../../server.js";
 import User from "../../models/user.js";
-import * as userService from "../../services/v1/userService";
+import * as userService from "../../services/v1/userService.js";
 import logger from "../../utils/logger.js";
 import * as passwordManager from "../../utils/passwordManager.js";
 

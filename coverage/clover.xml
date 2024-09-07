@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1725691963277" clover="3.2.0">
-  <project timestamp="1725691963277" name="All files">
-    <metrics statements="133" coveredstatements="119" conditionals="21" coveredconditionals="11" methods="26" coveredmethods="16" elements="180" coveredelements="146" complexity="0" loc="133" ncloc="133" packages="9" files="13" classes="13"/>
+<coverage generated="1725696636366" clover="3.2.0">
+  <project timestamp="1725696636366" name="All files">
+    <metrics statements="173" coveredstatements="129" conditionals="28" coveredconditionals="11" methods="31" coveredmethods="16" elements="232" coveredelements="156" complexity="0" loc="173" ncloc="173" packages="9" files="15" classes="15"/>
     <package name="src">
       <metrics statements="12" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
       <file name="server.ts" path="C:\Users\Nacent Soul\Desktop\TaskMaster API\src\server.ts">
@@ -21,9 +21,9 @@
       </file>
     </package>
     <package name="src.controllers.v1">
-      <metrics statements="24" coveredstatements="24" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="1"/>
+      <metrics statements="47" coveredstatements="26" conditionals="7" coveredconditionals="4" methods="2" coveredmethods="1"/>
       <file name="userController.ts" path="C:\Users\Nacent Soul\Desktop\TaskMaster API\src\controllers\v1\userController.ts">
-        <metrics statements="24" coveredstatements="24" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="1"/>
+        <metrics statements="47" coveredstatements="26" conditionals="7" coveredconditionals="4" methods="2" coveredmethods="1"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -31,23 +31,46 @@
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="11" count="8" type="stmt"/>
-        <line num="12" count="8" type="stmt"/>
-        <line num="15" count="8" type="stmt"/>
-        <line num="16" count="8" type="cond" truecount="1" falsecount="0"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="21" count="7" type="stmt"/>
-        <line num="22" count="7" type="stmt"/>
-        <line num="24" count="7" type="cond" truecount="1" falsecount="0"/>
-        <line num="25" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="30" count="4" type="stmt"/>
-        <line num="32" count="3" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
-        <line num="39" count="2" type="stmt"/>
-        <line num="40" count="2" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="8" type="stmt"/>
+        <line num="14" count="8" type="stmt"/>
+        <line num="17" count="8" type="stmt"/>
+        <line num="18" count="8" type="cond" truecount="1" falsecount="0"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="23" count="7" type="stmt"/>
+        <line num="24" count="7" type="stmt"/>
+        <line num="26" count="7" type="cond" truecount="1" falsecount="0"/>
+        <line num="27" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.enums">
@@ -74,8 +97,8 @@
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="36" count="1" type="cond" truecount="2" falsecount="0"/>
-        <line num="38" count="1" type="stmt"/>
+        <line num="34" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.routes.v1">
@@ -102,9 +125,9 @@
       </file>
     </package>
     <package name="src.services.v1">
-      <metrics statements="12" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <metrics statements="14" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
       <file name="userService.ts" path="C:\Users\Nacent Soul\Desktop\TaskMaster API\src\services\v1\userService.ts">
-        <metrics statements="12" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <metrics statements="14" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="7" type="stmt"/>
@@ -117,10 +140,12 @@
         <line num="18" count="2" type="stmt"/>
         <line num="20" count="2" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">
-      <metrics statements="55" coveredstatements="45" conditionals="13" coveredconditionals="3" methods="18" coveredmethods="10"/>
+      <metrics statements="68" coveredstatements="50" conditionals="17" coveredconditionals="3" methods="22" coveredmethods="10"/>
       <file name="errorHandler.ts" path="C:\Users\Nacent Soul\Desktop\TaskMaster API\src\utils\errorHandler.ts">
         <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="2" count="1" type="stmt"/>
@@ -155,6 +180,22 @@
         <line num="70" count="2" type="stmt"/>
         <line num="76" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="77" count="0" type="stmt"/>
+      </file>
+      <file name="jwtManager.ts" path="C:\Users\Nacent Soul\Desktop\TaskMaster API\src\utils\jwtManager.ts">
+        <metrics statements="13" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
       </file>
       <file name="logger.ts" path="C:\Users\Nacent Soul\Desktop\TaskMaster API\src\utils\logger.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -193,7 +234,12 @@
       </file>
     </package>
     <package name="src.validations">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="signin.ts" path="C:\Users\Nacent Soul\Desktop\TaskMaster API\src\validations\signin.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+      </file>
       <file name="signup.ts" path="C:\Users\Nacent Soul\Desktop\TaskMaster API\src\validations\signup.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>

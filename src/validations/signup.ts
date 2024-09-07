@@ -12,7 +12,7 @@ export const signUpValidation = z
             .regex(/^(?=.*[A-Z])/, "Password must contain at least one uppercase letter")
             .regex(/^(?=.*\d)/, "Password must contain at least one number")
             .regex(/^(?=.*[@$!%*?&])/, "Password must contain at least one special character"),
-        confirmPassword: z.string({ message: "Please enter a confirm password" })
+        confirmPassword: z.string({ message: "Require confirm password" })
     })
     .required()
     .refine(

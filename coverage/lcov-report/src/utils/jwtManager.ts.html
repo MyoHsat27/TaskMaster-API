@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/validations/signup.ts</title>
+    <title>Code coverage report for src/utils/jwtManager.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/validations</a> signup.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/utils</a> jwtManager.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">52.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>9/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">38.46% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>5/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -91,62 +91,74 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { z } from "zod";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import jsonwebtoken from "jsonwebtoken";
+import logger from "./logger.js";
 &nbsp;
-export const signUpValidation = z
-    .object({
-        username: z.string({ message: "Require username" }),
-        email: z.string({ message: "Require email" }).email({ message: "Incorrect format" }),
-        password: z
-            .string({ message: "Require password" })
-            .min(6, "Password required at least 6 character")
-            .max(20, "Password must be at most 20 characters long")
-            .regex(/^(?=.*[a-z])/, "Password must contain at least one lowercase letter")
-            .regex(/^(?=.*[A-Z])/, "Password must contain at least one uppercase letter")
-            .regex(/^(?=.*\d)/, "Password must contain at least one number")
-            .regex(/^(?=.*[@$!%*?&amp;])/, "Password must contain at least one special character"),
-        confirmPassword: z.string({ message: "Require confirm password" })
-    })
-    .required()
-    .refine(
-        (values) =&gt; {
-            return values.password === values.confirmPassword;
-        },
-        {
-            message: "Password and confirm password must be same",
-            path: ["confirmPassword"]
-        }
-    );
+export const generateJWT = <span class="fstat-no" title="function not covered" >(t</span>okenData: object, options?: jsonwebtoken.SignOptions) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return jsonwebtoken.sign(tokenData, process.env.JWT_SECRET!, {</span>
+        expiresIn: process.env.JWT_TTL!,
+        ...(options &amp;&amp; options)
+    });
+};
 &nbsp;
-export type SignUpUserType = z.infer&lt;typeof signUpValidation&gt;;
+export const generateRefreshToken = <span class="fstat-no" title="function not covered" >(t</span>okenData: object, options?: jsonwebtoken.SignOptions) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return jsonwebtoken.sign(tokenData, process.env.REFRESH_TOKEN_SECRET!, {</span>
+        expiresIn: process.env.REFRESH_TOKEN_TTL!,
+        ...(options &amp;&amp; options)
+    });
+};
+&nbsp;
+export const getDataFromToken = <span class="fstat-no" title="function not covered" >(j</span>wtToken: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >        return jsonwebtoken.verify(jwtToken, process.env.JWT_SECRET!);</span>
+    } catch (error: any) {
+<span class="cstat-no" title="statement not covered" >        throw new Error("Unauthorized");</span>
+    }
+};
+&nbsp;
+export const verifyRefreshToken = <span class="fstat-no" title="function not covered" >(r</span>efreshToken: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >        return jsonwebtoken.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!);</span>
+    } catch (error: any) {
+<span class="cstat-no" title="statement not covered" >        throw new Error("Invalid refresh token");</span>
+    }
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
