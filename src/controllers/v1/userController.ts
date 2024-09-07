@@ -20,7 +20,7 @@ export const register = async (req: Request, res: Response) => {
             return HttpBadRequestHandler(res, validationResult);
         }
 
-        // Check the existing user
+        // Check if user already exists
         const { username, email, password } = body;
         const existingUser = await findOne({ email, username });
 

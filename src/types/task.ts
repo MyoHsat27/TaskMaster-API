@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export const enum TaskStatusType {
     PENDING = "income",
     INPROGRESS = "in-progress",
@@ -12,16 +14,26 @@ export const enum TaskPriorityType {
 
 export interface TaskObject {
     _id: string;
-    username: string;
-    email: string;
-    password: string;
+    title: string;
+    description: string;
+    status: string;
+    priority: string;
     createdAt: Date;
-    isAdmin: boolean;
-    _v: number;
+    updatedAt: Date;
+    userId: mongoose.Schema.Types.ObjectId;
 }
 
 export interface TaskCreateObject {
-    username: string;
-    email: string;
-    password: string;
+    title: string;
+    description: string;
+    status?: "pending" | "in-progress" | "completed";
+    priority?: "low" | "medium" | "high";
+    userId: mongoose.Schema.Types.ObjectId;
+}
+
+export interface TaskUpdateObject {
+    title: string;
+    description: string;
+    status: string;
+    priority: string;
 }

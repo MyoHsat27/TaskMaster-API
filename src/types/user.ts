@@ -3,9 +3,9 @@ export interface UserObject {
     username: string;
     email: string;
     password: string;
+    updatedAt: Date;
     createdAt: Date;
     isAdmin: boolean;
-    _v: number;
 }
 
 export interface UserCreateObject {

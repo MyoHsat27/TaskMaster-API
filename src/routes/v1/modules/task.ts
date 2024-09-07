@@ -11,7 +11,7 @@ const router: Router = express.Router();
 
 router.get("/", getAllTasks);
 router.post("/:taskId", getOneTaskById);
-router.post("/task", createNewTask);
+router.post("/", createNewTask);
 router.post("/:taskId", updateOneTask);
 router.post("/:taskId", deleteOneTask);
 

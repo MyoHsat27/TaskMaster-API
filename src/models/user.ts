@@ -16,10 +16,6 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please provide a password"]
         },
-        createdAt: {
-            type: Date,
-            default: Date.now
-        },
         isAdmin: {
             type: Boolean,
             default: false

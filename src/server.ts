@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import v1Routes from "./routes/v1/index.js";
 import cookieParser from "cookie-parser";
+import logger from "./helpers/logger.js";
 
 function createServer() {
     dotenv.config();
@@ -12,7 +13,7 @@ function createServer() {
     app.use(cookieParser());
 
     app.use((err: Error, req: Request, res: Response, __next: NextFunction) => {
-        console.error(err.stack);
+        logger.error(err.stack);
         res.status(500).send("Something went wrong");
     });
 
