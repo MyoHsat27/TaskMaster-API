@@ -37,8 +37,17 @@ export const createTask = async (task: TaskCreateObject) => {
     }
 };
 
-export const updateTask = async (task: TaskUpdateObject) => {
+export const updateTask = async (id: string, task: TaskUpdateObject) => {
     try {
+        const oldTask = await Task.findById(id);
+
+        oldTask.title = task.title;
+        oldTask.description = task.description;
+        oldTask.status = task.status;
+        oldTask.priority = task.priority;
+
+        const updatedTask = await oldTask.save();
+        return updatedTask;
     } catch (error: any) {
         throw new Error(error);
     }
@@ -46,6 +55,8 @@ export const updateTask = async (task: TaskUpdateObject) => {
 
 export const deleteTask = async (id: string) => {
     try {
+        const taskObjectId = transformToObjectId(id);
+        await Task.deleteOne({ _id: taskObjectId });
     } catch (error: any) {
         throw new Error(error);
     }

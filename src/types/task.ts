@@ -20,7 +20,7 @@ export interface TaskObject {
     priority: string;
     createdAt: Date;
     updatedAt: Date;
-    userId: mongoose.Schema.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
 }
 
 export interface TaskCreateObject {
@@ -28,7 +28,7 @@ export interface TaskCreateObject {
     description: string;
     status?: "pending" | "in-progress" | "completed";
     priority?: "low" | "medium" | "high";
-    userId: mongoose.Schema.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
 }
 
 export interface TaskUpdateObject {

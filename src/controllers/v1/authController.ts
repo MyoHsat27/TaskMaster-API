@@ -7,7 +7,7 @@ import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../
 
 export const refreshToken = async (req: Request, res: Response) => {
     try {
-        const { refreshToken: existingRefreshToken } = req.cookies;
+        const existingRefreshToken = req.headers["x-refresh"] as string;
 
         if (!existingRefreshToken) {
             return HttpBadRequestHandler(res, "No refresh token provided");
