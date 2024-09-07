@@ -21,7 +21,7 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  npm ci
+                  npm install
 
             - name: build
               run: |
@@ -63,3 +63,4 @@ jobs:
                       echo "runing the docker image"
                       echo "Testing the nodejs  app endpoints"
                       echo ${{ steps.docker_build.outputs.digest }}
+ 
