@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import logger from "../../helpers/logger.js";
-import { handleError } from "../../helpers/errorHandler.js";
+import { sendErrorResponse } from "../../helpers/errorHandler.js";
 import { validate } from "../../helpers/zodValidation.js";
 import { taskCreateValidation } from "../../validations/task/taskCreate.js";
 import { taskUpdateValidation } from "../../validations/task/taskUpdate.js";
@@ -10,16 +10,31 @@ import {
     HttpFetchedHandler,
     HttpNotFoundHandler
 } from "../../helpers/httpResponseHandler.js";
-import { getTaskByTitle, createTask, updateTask, deleteTask, getTaskById } from "../../services/v1/taskService.js";
+import {
+    getTasks,
+    getTaskById,
+    getTaskByTitle,
+    getTaskByUserIdAndTitle,
+    createTask,
+    updateTask,
+    deleteTask
+} from "../../services/v1/taskService.js";
 import { TaskCreateObject } from "../../types/task.js";
-import { transformToObjectId, isValidObjectId } from "../../helpers/mongoHelper.js";
+import { transformToObjectId, isValidObjectId } from "../../helpers/helpers.js";
 
 export const getAllTasks = async (req: Request, res: Response) => {
     try {
-        res.send(req.query);
+        const userId = res.locals.user._id;
+        const tasks = await getTasks(userId, req.query);
+
+        return HttpFetchedHandler(res, {
+            success: true,
+            tasks: tasks.data,
+            pagination: tasks.pagination
+        });
     } catch (error: unknown) {
         logger.error(error);
-        handleError(res, error);
+        sendErrorResponse(res, error);
     }
 };
 
@@ -50,7 +65,7 @@ export const getOneTaskById = async (req: Request, res: Response) => {
         });
     } catch (error: unknown) {
         logger.error(error);
-        handleError(res, error);
+        sendErrorResponse(res, error);
     }
 };
 
@@ -68,7 +83,7 @@ export const createNewTask = async (req: Request, res: Response) => {
 
         // Check if a task with the same title exists
         const { title, description, status, priority }: TaskCreateObject = body;
-        const existingTask = await getTaskByTitle(title);
+        const existingTask = await getTaskByUserIdAndTitle(userId, title);
         if (existingTask && existingTask.userId.toString() === userId.toString()) {
             return HttpBadRequestHandler(res, `Task already exists`);
         }
@@ -83,7 +98,7 @@ export const createNewTask = async (req: Request, res: Response) => {
         });
     } catch (error: unknown) {
         logger.error(error);
-        handleError(res, error);
+        sendErrorResponse(res, error);
     }
 };
 
@@ -134,7 +149,7 @@ export const updateOneTask = async (req: Request, res: Response) => {
         });
     } catch (error: unknown) {
         logger.error(error);
-        handleError(res, error);
+        sendErrorResponse(res, error);
     }
 };
 
@@ -168,6 +183,6 @@ export const deleteOneTask = async (req: Request, res: Response) => {
         });
     } catch (error: unknown) {
         logger.error(error);
-        handleError(res, error);
+        sendErrorResponse(res, error);
     }
 };

@@ -6,7 +6,7 @@ import { HttpBadRequestHandler, HttpCreatedHandler } from "../../helpers/httpRes
 import { create, findOne } from "../../services/v1/userService.js";
 import { hashPassword, comparePassword } from "../../helpers/passwordManager.js";
 import logger from "../../helpers/logger.js";
-import { handleError } from "../../helpers/errorHandler.js";
+import { sendErrorResponse } from "../../helpers/errorHandler.js";
 import { generateAuthToken, generateRefreshToken } from "../../helpers/jwtManager.js";
 import { AuthTokenData } from "../../types/token.js";
 
@@ -40,7 +40,7 @@ export const register = async (req: Request, res: Response) => {
         });
     } catch (error: unknown) {
         logger.error(error);
-        handleError(res, error);
+        sendErrorResponse(res, error);
     }
 };
 
@@ -96,6 +96,6 @@ export const login = async (req: Request, res: Response) => {
         });
     } catch (error: unknown) {
         logger.error(error);
-        handleError(res, error);
+        sendErrorResponse(res, error);
     }
 };

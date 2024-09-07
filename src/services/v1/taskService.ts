@@ -1,28 +1,49 @@
+import { TaskCreateObject, TaskObject, TaskUpdateObject } from "../../types/task.js";
+import { transformToObjectId } from "../../helpers/helpers.js";
+import { PaginateQuery, PaginateResult } from "../../types/paginate.js";
+import { paginator } from "../../helpers/paginator.js";
+import mongoose from "mongoose";
+import { throwError } from "../../helpers/errorHandler.js";
 import Task from "../../models/task.js";
-import { TaskCreateObject, TaskUpdateObject } from "../../types/task.js";
-import { transformToObjectId } from "../../helpers/mongoHelper.js";
+
+export const getTaskByUserIdAndTitle = async (userId: mongoose.Types.ObjectId, title: string) => {
+    try {
+        const task = await Task.findOne({
+            $and: [{ title }, { userId }]
+        });
+        return task;
+    } catch (error) {
+        throwError(error);
+    }
+};
 
 export const getTaskById = async (id: string) => {
     try {
         const taskObjectId = transformToObjectId(id);
         return await Task.findOne({ _id: taskObjectId });
-    } catch (error: any) {
-        throw new Error(error);
+    } catch (error) {
+        throwError(error);
     }
 };
 
 export const getTaskByTitle = async (title: string) => {
     try {
         return await Task.findOne({ title });
-    } catch (error: any) {
-        throw new Error(error);
+    } catch (error) {
+        throwError(error);
     }
 };
 
-export const getAllTasks = async () => {
+export const getTasks = async (userId: string, query: PaginateQuery): Promise<PaginateResult<TaskObject>> => {
     try {
-    } catch (error: any) {
-        throw new Error(error);
+        const filters = {
+            ...query.filters,
+            userId
+        };
+        return await paginator(Task, { ...query, filters });
+    } catch (error) {
+        throwError(error);
+        return Promise.reject(error);
     }
 };
 
@@ -32,8 +53,8 @@ export const createTask = async (task: TaskCreateObject) => {
         const savedTask = await newTask.save();
 
         return savedTask;
-    } catch (error: any) {
-        throw new Error(error);
+    } catch (error) {
+        throwError(error);
     }
 };
 
@@ -48,8 +69,8 @@ export const updateTask = async (id: string, task: TaskUpdateObject) => {
 
         const updatedTask = await oldTask.save();
         return updatedTask;
-    } catch (error: any) {
-        throw new Error(error);
+    } catch (error) {
+        throwError(error);
     }
 };
 
@@ -57,7 +78,7 @@ export const deleteTask = async (id: string) => {
     try {
         const taskObjectId = transformToObjectId(id);
         await Task.deleteOne({ _id: taskObjectId });
-    } catch (error: any) {
-        throw new Error(error);
+    } catch (error) {
+        throwError(error);
     }
 };

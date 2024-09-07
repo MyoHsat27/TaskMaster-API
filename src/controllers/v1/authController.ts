@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { HttpBadRequestHandler, HttpCreatedHandler } from "../../helpers/httpResponseHandler.js";
 import { findOneById } from "../../services/v1/userService.js";
 import logger from "../../helpers/logger.js";
-import { handleError } from "../../helpers/errorHandler.js";
+import { sendErrorResponse } from "../../helpers/errorHandler.js";
 import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../../helpers/jwtManager.js";
 
 export const refreshToken = async (req: Request, res: Response) => {
@@ -45,6 +45,6 @@ export const refreshToken = async (req: Request, res: Response) => {
         });
     } catch (error: unknown) {
         logger.error(error);
-        handleError(res, error);
+        sendErrorResponse(res, error);
     }
 };
