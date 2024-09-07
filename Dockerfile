@@ -9,4 +9,4 @@ COPY . .
 RUN npm run build
 RUN ls -al /app/dist
 EXPOSE 8000
-CMD ["node","dist/server.js"]
+CMD ["node","dist/app.js"]
