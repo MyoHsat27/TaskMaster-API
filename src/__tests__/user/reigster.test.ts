@@ -82,7 +82,7 @@ describe("POST /register", () => {
 
         expect(response.status).toBe(201);
         expect(response.body.status).toBe(201);
-        expect(response.body.responseMessage).toBe("User created successfully");
+        expect(response.body.message).toBe("User created successfully");
 
         // Check if user is actually in the database
         const createdUser = await User.findOne({ email: "newuser@example.com" });
