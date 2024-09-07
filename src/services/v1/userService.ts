@@ -1,5 +1,6 @@
 import User from "../../models/user.js";
 import { UserCreateObject } from "../../types/user.js";
+import { transformToObjectId } from "../../helpers/helper.js";
 
 export const findOne = async (param: Record<string, string>) => {
     try {
@@ -7,6 +8,15 @@ export const findOne = async (param: Record<string, string>) => {
             $or: [{ email: param.email }, { username: param.username }]
         });
         return user;
+    } catch (error: any) {
+        throw new Error(error);
+    }
+};
+
+export const findOneById = async (id: string) => {
+    try {
+        let userObjectId = transformToObjectId(id, "wallet not found");
+        return await User.findOne({ _id: userObjectId });
     } catch (error: any) {
         throw new Error(error);
     }
@@ -21,11 +31,4 @@ export const create = async (user: UserCreateObject) => {
     } catch (error: any) {
         throw new Error(error);
     }
-};
-
-export const updateRefreshToken = async (userId: string, refreshToken: string) => {
-    return User.findByIdAndUpdate(userId, {
-        refreshToken,
-        refreshTokenExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-    });
 };

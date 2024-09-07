@@ -8,6 +8,7 @@ import { hashPassword, comparePassword } from "../../utils/passwordManager.js";
 import logger from "../../utils/logger.js";
 import { handleError } from "../../utils/errorHandler.js";
 import { generateJWT, generateRefreshToken } from "../../utils/jwtManager.js";
+import { refreshToken } from "./authController";
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -59,11 +60,13 @@ export const login = async (req: Request, res: Response) => {
             return HttpBadRequestHandler(res, "user not found");
         }
 
-        const validPassword = await comparePassword(password, user.password);
-        if (!validPassword) {
+        // Validate password
+        const isPasswordValid = await comparePassword(password, user.password);
+        if (!isPasswordValid) {
             return HttpBadRequestHandler(res, "email or password is wrong");
         }
 
+        // Generate tokens
         const tokenData = {
             _id: user._id,
             username: user.username,
@@ -72,18 +75,20 @@ export const login = async (req: Request, res: Response) => {
 
         const jwtToken = generateJWT(tokenData);
         const refreshToken = generateRefreshToken(user._id.toString());
+        user.refreshToken = refreshToken;
         await user.save();
 
+        // Set tokens into cookies
         res.cookie("authToken", jwtToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 24 * 60 * 60 * 1000 // 1 day
         });
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 30 * 24 * 60 * 60 * 1000
+            maxAge: 30 * 24 * 60 * 60 * 1000 // 30 day
         });
 
         HttpCreatedHandler(res, {

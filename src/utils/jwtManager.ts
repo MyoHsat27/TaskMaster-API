@@ -10,7 +10,7 @@ export const generateJWT = (tokenData: object, options?: jsonwebtoken.SignOption
 
 export const generateRefreshToken = (tokenData: object, options?: jsonwebtoken.SignOptions) => {
     return jsonwebtoken.sign(tokenData, process.env.REFRESH_TOKEN_SECRET!, {
-        expiresIn: process.env.REFRESH_TOKEN_TTL!,
+        expiresIn: process.env.JWT_TTL!,
         ...(options && options)
     });
 };

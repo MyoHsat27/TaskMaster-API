@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import v1Routes from "./routes/v1/index.js";
+import cookieParser from "cookie-parser";
 
 function createServer() {
     dotenv.config();
@@ -8,6 +9,7 @@ function createServer() {
     const app = express();
 
     app.use(express.json());
+    app.use(cookieParser());
 
     app.use((err: Error, req: Request, res: Response, __next: NextFunction) => {
         console.error(err.stack);
