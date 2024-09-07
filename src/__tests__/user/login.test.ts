@@ -8,7 +8,7 @@ import * as jwtManager from "../../utils/jwtManager.js";
 
 const app = createServer();
 
-describe("POST /login", () => {
+describe("POST /users/login", () => {
     beforeAll(async () => {
         await User.deleteMany({});
         await User.create({

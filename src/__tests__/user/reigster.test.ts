@@ -7,7 +7,7 @@ import * as passwordManager from "../../utils/passwordManager.js";
 
 const app = createServer();
 
-describe("POST /register", () => {
+describe("POST /users/register", () => {
     beforeAll(async () => {
         await User.deleteMany({});
     });

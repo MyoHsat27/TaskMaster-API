@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.16% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/24</span>
+                <span class='fraction'>20/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.08% </span>
+                <span class="strong">82.6% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/23</span>
+                <span class='fraction'>19/23</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -114,32 +114,32 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -159,8 +159,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Request, Response } from "express";
@@ -170,26 +170,26 @@ import logger from "../../utils/logger.js";
 import { handleError } from "../../utils/errorHandler.js";
 import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../../utils/jwtManager.js";
 &nbsp;
-export const refreshToken = <span class="fstat-no" title="function not covered" >async </span>(req: Request, res: Response) =&gt; {
-<span class="cstat-no" title="statement not covered" >    try {</span>
-        const { refreshToken: existingRefreshToken } = <span class="cstat-no" title="statement not covered" >req.cookies;</span>
+export const refreshToken = async (req: Request, res: Response) =&gt; {
+    try {
+        const { refreshToken: existingRefreshToken } = req.cookies;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!existingRefreshToken) {</span>
-<span class="cstat-no" title="statement not covered" >            return HttpBadRequestHandler(res, "No refresh token provided");</span>
+        if (!existingRefreshToken) {
+            return HttpBadRequestHandler(res, "No refresh token provided");
         }
 &nbsp;
         // Decode the refresh token to extract user ID
-        const { _id } = <span class="cstat-no" title="statement not covered" >decodeRefreshToken(existingRefreshToken);</span>
-        const user = <span class="cstat-no" title="statement not covered" >await findOneById(_id);</span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!user || user.refreshToken !== existingRefreshToken) {</span>
+        const { _id } = decodeRefreshToken(existingRefreshToken);
+        const user = await findOneById(_id);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!user || user.refreshToken !== existingRefreshToken) {
 <span class="cstat-no" title="statement not covered" >            return HttpBadRequestHandler(res, "Invalid refresh token");</span>
         }
 &nbsp;
         // Generate new JWT and refresh tokens
-        const newAuthToken = <span class="cstat-no" title="statement not covered" >generateAuthToken({ _id: user._id, username: user.username, email: user.email });</span>
-        const newRefreshToken = <span class="cstat-no" title="statement not covered" >generateRefreshToken({ _id: user._id });</span>
-<span class="cstat-no" title="statement not covered" >        user.refreshToken = newRefreshToken;</span>
-<span class="cstat-no" title="statement not covered" >        await user.save();</span>
+        const newAuthToken = generateAuthToken({ _id: user._id, username: user.username, email: user.email });
+        const newRefreshToken = generateRefreshToken({ _id: user._id });
+        user.refreshToken = newRefreshToken;
+        await user.save();
 &nbsp;
         // Set new tokens in cookies
 <span class="cstat-no" title="statement not covered" >        res.cookie("authToken", newAuthToken, {</span>
@@ -209,8 +209,8 @@ export const refreshToken = <span class="fstat-no" title="function not covered" 
             success: true
         });
     } catch (error: unknown) {
-<span class="cstat-no" title="statement not covered" >        logger.error(error);</span>
-<span class="cstat-no" title="statement not covered" >        handleError(res, error);</span>
+        logger.error(error);
+        handleError(res, error);
     }
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -220,7 +220,7 @@ export const refreshToken = <span class="fstat-no" title="function not covered" 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-07T11:05:45.535Z
+                at 2024-09-07T11:30:07.769Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
