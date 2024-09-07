@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { HttpBadRequestHandler, HttpCreatedHandler } from "../../utils/httpResponseHandler.js";
+import { HttpBadRequestHandler, HttpCreatedHandler } from "../../helpers/httpResponseHandler.js";
 import { findOneById } from "../../services/v1/userService.js";
-import logger from "../../utils/logger.js";
-import { handleError } from "../../utils/errorHandler.js";
-import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../../utils/jwtManager.js";
+import logger from "../../helpers/logger.js";
+import { sendErrorResponse } from "../../helpers/errorHandler.js";
+import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../../helpers/jwtManager.js";
 
 export const refreshToken = async (req: Request, res: Response) => {
     try {
-        const { refreshToken: existingRefreshToken } = req.cookies;
+        const existingRefreshToken = req.headers["x-refresh"] as string;
 
         if (!existingRefreshToken) {
             return HttpBadRequestHandler(res, "No refresh token provided");
@@ -45,6 +45,6 @@ export const refreshToken = async (req: Request, res: Response) => {
         });
     } catch (error: unknown) {
         logger.error(error);
-        handleError(res, error);
+        sendErrorResponse(res, error);
     }
 };

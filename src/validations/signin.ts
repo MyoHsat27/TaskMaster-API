@@ -7,4 +7,4 @@ export const signInValidation = z
     })
     .required();
 
-export type SignInType = z.infer<typeof signInValidation>;
+export type SignInUserType = z.infer<typeof signInValidation>;

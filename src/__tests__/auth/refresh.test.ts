@@ -1,10 +1,10 @@
 import request from "supertest";
 import createServer from "../../server.js";
 import User from "../../models/user.js";
-import * as jwtManager from "../../utils/jwtManager.js";
-import logger from "../../utils/logger.js";
+import * as jwtManager from "../../helpers/jwtManager.js";
+import logger from "../../helpers/logger.js";
 import * as userService from "../../services/v1/userService.js";
-import * as passwordManager from "../../utils/passwordManager.js";
+import * as passwordManager from "../../helpers/passwordManager.js";
 
 const app = createServer();
 
@@ -13,7 +13,7 @@ describe("POST /auth/refresh", () => {
 
     beforeAll(async () => {
         await User.deleteMany({});
-        const user = await User.create({
+        await User.create({
             email: "testuser@example.com",
             username: "testuser",
             password: await passwordManager.hashPassword("ValidPassword123!"),

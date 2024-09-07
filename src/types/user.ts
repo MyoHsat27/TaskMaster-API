@@ -3,21 +3,13 @@ export interface UserObject {
     username: string;
     email: string;
     password: string;
+    updatedAt: Date;
     createdAt: Date;
-    isVerified: boolean;
     isAdmin: boolean;
-    _v: number;
 }
 
 export interface UserCreateObject {
     username: string;
     email: string;
     password: string;
-}
-
-export interface UserResponseObject {
-    username: string;
-    email: string;
-    isVerified: boolean;
-    isAdmin: boolean;
 }

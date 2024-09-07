@@ -2,9 +2,9 @@ import request from "supertest";
 import createServer from "../../server.js";
 import User from "../../models/user.js";
 import * as userService from "../../services/v1/userService.js";
-import logger from "../../utils/logger.js";
-import * as passwordManager from "../../utils/passwordManager.js";
-import * as jwtManager from "../../utils/jwtManager.js";
+import logger from "../../helpers/logger.js";
+import * as passwordManager from "../../helpers/passwordManager.js";
+import * as jwtManager from "../../helpers/jwtManager.js";
 
 const app = createServer();
 
