@@ -70,7 +70,10 @@ describe("POST /login", () => {
         const cookies = response.headers["set-cookie"];
         expect(cookies).toBeDefined();
         expect(cookies).toEqual(
-            expect.arrayContaining([expect.stringContaining("authToken"), expect.stringContaining("refreshToken")])
+            expect.arrayContaining([
+                expect.stringMatching(/^authToken=.*; HttpOnly$/),
+                expect.stringMatching(/^refreshToken=.*; HttpOnly$/)
+            ])
         );
     });
 
