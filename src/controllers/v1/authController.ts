@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { HttpBadRequestHandler, HttpCreatedHandler } from "../../helpers/httpResponseHandler.js";
 import { findOneById } from "../../services/v1/userService.js";
-import logger from "../../helpers/logger.js";
 import { sendErrorResponse } from "../../helpers/errorHandler.js";
 import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../../helpers/jwtManager.js";
 
@@ -35,11 +34,9 @@ export const refreshToken = async (req: Request, res: Response) => {
         HttpCreatedHandler(res, {
             message: "Token refreshed successfully",
             success: true,
-            accessToken: newAuthToken,
-            expiresIn: 3600
+            accessToken: newAuthToken
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };

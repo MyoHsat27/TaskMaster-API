@@ -3,7 +3,7 @@ import { UserCreateObject } from "../../types/user.js";
 import { transformToObjectId } from "../../helpers/helpers.js";
 import { throwError } from "../../helpers/errorHandler.js";
 
-const findOne = async (param: Record<string, string>) => {
+export const findOne = async (param: Record<string, string>) => {
     try {
         const user = await User.findOne({
             $or: [{ email: param.email }, { username: param.username }]
@@ -14,7 +14,7 @@ const findOne = async (param: Record<string, string>) => {
     }
 };
 
-const findOneById = async (id: string) => {
+export const findOneById = async (id: string) => {
     try {
         const userObjectId = transformToObjectId(id);
         return await User.findOne({ _id: userObjectId });
@@ -23,7 +23,7 @@ const findOneById = async (id: string) => {
     }
 };
 
-const create = async (user: UserCreateObject) => {
+export const create = async (user: UserCreateObject) => {
     try {
         const newUser = new User(user);
         const savedUser = await newUser.save();
@@ -33,5 +33,3 @@ const create = async (user: UserCreateObject) => {
         throwError(error);
     }
 };
-
-export { findOne, findOneById, create };

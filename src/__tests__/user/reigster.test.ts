@@ -2,24 +2,13 @@ import request from "supertest";
 import createServer from "../../server.js";
 import User from "../../models/user.js";
 import * as userService from "../../services/v1/userService.js";
-import logger from "../../helpers/logger.js";
 import * as passwordManager from "../../helpers/passwordManager.js";
-import { jest } from "@jest/globals";
 
 const app = createServer();
-
-jest.mock("../../services/v1/userService.js", async () => {
-    const mod = await jest.requireActual("../../services/v1/userService.js");
-    console.log(mod);
-});
 
 describe("POST /users/register", () => {
     beforeAll(async () => {
         await User.deleteMany({});
-    });
-
-    afterEach(() => {
-        jest.restoreAllMocks();
     });
 
     it("should return validation error for invalid input", async () => {
@@ -101,8 +90,6 @@ describe("POST /users/register", () => {
             throw new Error("Database error during user creation");
         });
 
-        const loggerSpy = jest.spyOn(logger, "error");
-
         const response = await request(app).post("/api/v1/users/register").send({
             email: "erroruser@example.com",
             username: "erroruser",
@@ -111,16 +98,12 @@ describe("POST /users/register", () => {
         });
 
         expect(response.statusCode).toBe(500);
-        expect(loggerSpy).toHaveBeenCalled();
-        expect(loggerSpy).toHaveBeenCalledWith(new Error("Database error during user creation"));
     });
 
     it("should handle error when hashing password fails", async () => {
         jest.spyOn(passwordManager, "hashPassword").mockImplementation(() => {
             throw new Error("Hashing error");
         });
-
-        const loggerSpy = jest.spyOn(logger, "error");
 
         const response = await request(app).post("/api/v1/users/register").send({
             email: "hashuser@example.com",
@@ -130,7 +113,5 @@ describe("POST /users/register", () => {
         });
 
         expect(response.statusCode).toBe(500);
-        expect(loggerSpy).toHaveBeenCalled();
-        expect(loggerSpy).toHaveBeenCalledWith(new Error("Hashing error"));
     });
 });

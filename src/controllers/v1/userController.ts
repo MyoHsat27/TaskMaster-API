@@ -5,7 +5,6 @@ import { validate } from "../../helpers/zodValidation.js";
 import { HttpBadRequestHandler, HttpCreatedHandler } from "../../helpers/httpResponseHandler.js";
 import { create, findOne } from "../../services/v1/userService.js";
 import { hashPassword, comparePassword } from "../../helpers/passwordManager.js";
-import logger from "../../helpers/logger.js";
 import { sendErrorResponse } from "../../helpers/errorHandler.js";
 import { generateAuthToken, generateRefreshToken } from "../../helpers/jwtManager.js";
 import { AuthTokenData } from "../../types/token.js";
@@ -39,7 +38,6 @@ export const register = async (req: Request, res: Response) => {
             success: true
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };
@@ -86,11 +84,9 @@ export const login = async (req: Request, res: Response) => {
         HttpCreatedHandler(res, {
             message: "Login successful",
             success: true,
-            accessToken: authToken,
-            expiresIn: 3600
+            accessToken: authToken
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };
