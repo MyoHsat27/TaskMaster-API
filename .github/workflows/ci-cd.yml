@@ -47,7 +47,3 @@ jobs:
 
             - name: Push Docker image to Docker Hub
               run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/task-master:latest
-
-            - name: Deploy to Docker Hub
-              run: |
-                  # Add your deployment script or commands here
