@@ -1,30 +1,23 @@
 version: "3.9"
 
 services:
-    mongo_db:
-        image: mongo:latest
-        ports:
-            - 27017:27017
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
-
-    api:
-        build: .
+    rest-api:
+        build:
+            context: .
+            dockerfile: Dockerfile
         ports:
             - 3000:3000
         depends_on:
             - mongo_db
         environment:
-            PORT: ${PORT}
-            NODE_ENV: ${NODE_ENV}
-            MONGO_URL: ${MONGO_URL}
-            JWT_SECRET: ${JWT_SECRET}
-            REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
-            JWT_TTL: ${JWT_TTL}
-            REFRESH_TOKEN_TTL: ${REFRESH_TOKEN_TTL}
-            PINO_LOG_LEVEL: ${PINO_LOG_LEVEL}
-        env_file:
-            - .env
-            - .env.${NODE_ENV}
-        command: npm run build && npm run start
+            NODE_ENV: development
+
+    mongo_db:
+        image: mongo:latest
+        ports:
+            - 27017:27017
+        volumes:
+            - mongodb_data:/data/db
+
+volumes:
+    mongodb_data:

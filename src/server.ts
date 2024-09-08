@@ -2,11 +2,13 @@ import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import v1Routes from "./routes/v1/index.js";
 import cookieParser from "cookie-parser";
+import { dbConnect } from "./config/mongoose.js";
 
 function createServer() {
     const environment = process.env.NODE_ENV || "development";
     if (process.env.NODE_ENV !== "test") {
-        dotenv.config({ path: `.env.${environment}` });
+        const result = dotenv.config({ path: `.env.${environment}` });
+        console.log(result);
     }
 
     const app = express();
@@ -21,6 +23,7 @@ function createServer() {
     });
 
     app.use("/api/v1", v1Routes);
+    dbConnect();
 
     return app;
 }
