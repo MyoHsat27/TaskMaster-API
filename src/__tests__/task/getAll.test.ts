@@ -63,4 +63,28 @@ describe("GET /api/v1/tasks", () => {
         expect(response.body.status).toBe(500);
         expect(response.body.message).toBe("Failed to fetch tasks");
     });
+
+    it("should return unauthorize when users provide invalid auth token", async () => {
+        jest.spyOn(jwtManager, "decodeAuthToken").mockImplementation(() => {
+            throw Error("Unauthorized");
+        });
+
+        const response = await request(app).get("/api/v1/tasks").set("Authorization", authToken);
+
+        expect(response.status).toBe(401);
+        expect(response.body.status).toBe(401);
+        expect(response.body.message).toBe("Unauthorized");
+    });
+
+    it("handle error when user cannot find", async () => {
+        jest.spyOn(userService, "findOneById").mockImplementation(() => {
+            throw Error("Unauthorized");
+        });
+
+        const response = await request(app).get("/api/v1/tasks").set("Authorization", authToken);
+
+        expect(response.status).toBe(401);
+        expect(response.body.status).toBe(401);
+        expect(response.body.message).toBe("Unauthorized");
+    });
 });

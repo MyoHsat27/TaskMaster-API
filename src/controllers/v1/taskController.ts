@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { sendErrorResponse } from "../../helpers/errorHandler.js";
 import { validate } from "../../helpers/zodValidation.js";
-import { taskCreateValidation } from "../../validations/task/taskCreate.js";
-import { taskUpdateValidation } from "../../validations/task/taskUpdate.js";
+import { taskCreateValidation } from "../../validations/taskCreate.js";
+import { taskUpdateValidation } from "../../validations/taskUpdate.js";
 import {
     HttpBadRequestHandler,
     HttpCreatedHandler,
