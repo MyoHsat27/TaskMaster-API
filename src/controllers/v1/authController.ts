@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 import { HttpBadRequestHandler, HttpCreatedHandler } from "../../helpers/httpResponseHandler.js";
 import { findOneById } from "../../services/v1/userService.js";
-import logger from "../../helpers/logger.js";
 import { sendErrorResponse } from "../../helpers/errorHandler.js";
 import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../../helpers/jwtManager.js";
 
 export const refreshToken = async (req: Request, res: Response) => {
     try {
-        const existingRefreshToken = req.headers["x-refresh"] as string;
+        const existingRefreshToken = req.cookies["refreshToken"];
 
         if (!existingRefreshToken) {
             return HttpBadRequestHandler(res, "No refresh token provided");
@@ -26,13 +25,6 @@ export const refreshToken = async (req: Request, res: Response) => {
         user.refreshToken = newRefreshToken;
         await user.save();
 
-        // Set new tokens in cookies
-        res.cookie("authToken", newAuthToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 24 * 60 * 60 * 1000 // 1 day
-        });
-
         res.cookie("refreshToken", newRefreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
@@ -41,10 +33,10 @@ export const refreshToken = async (req: Request, res: Response) => {
 
         HttpCreatedHandler(res, {
             message: "Token refreshed successfully",
-            success: true
+            success: true,
+            accessToken: newAuthToken
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };

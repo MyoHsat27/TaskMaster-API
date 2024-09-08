@@ -5,7 +5,6 @@ import { validate } from "../../helpers/zodValidation.js";
 import { HttpBadRequestHandler, HttpCreatedHandler } from "../../helpers/httpResponseHandler.js";
 import { create, findOne } from "../../services/v1/userService.js";
 import { hashPassword, comparePassword } from "../../helpers/passwordManager.js";
-import logger from "../../helpers/logger.js";
 import { sendErrorResponse } from "../../helpers/errorHandler.js";
 import { generateAuthToken, generateRefreshToken } from "../../helpers/jwtManager.js";
 import { AuthTokenData } from "../../types/token.js";
@@ -39,7 +38,6 @@ export const register = async (req: Request, res: Response) => {
             success: true
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };
@@ -77,13 +75,6 @@ export const login = async (req: Request, res: Response) => {
         user.refreshToken = refreshToken;
         await user.save();
 
-        // Set tokens into cookies
-        res.cookie("authToken", authToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 24 * 60 * 60 * 1000 // 1 day
-        });
-
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
@@ -92,10 +83,10 @@ export const login = async (req: Request, res: Response) => {
 
         HttpCreatedHandler(res, {
             message: "Login successful",
-            success: true
+            success: true,
+            accessToken: authToken
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };
