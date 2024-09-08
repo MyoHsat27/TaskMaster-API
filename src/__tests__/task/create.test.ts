@@ -4,7 +4,6 @@ import createServer from "../../server.js";
 import * as jwtManager from "../../helpers/jwtManager.js";
 import * as userService from "../../services/v1/userService.js";
 import * as taskService from "../../services/v1/taskService.js";
-import * as passwordManager from "../../helpers/passwordManager.js";
 import { AuthTokenData } from "../../types/token.js";
 import mongoose from "mongoose";
 import Task from "../../models/task.js";
@@ -33,28 +32,7 @@ const mockTask = new Task({
     userId: new mongoose.Types.ObjectId("66dd82797888aeb9e361e0e3")
 });
 
-describe.only("POST /api/v1/tasks", () => {
-    beforeAll(async () => {
-        await User.deleteMany({});
-        await Task.deleteMany({});
-        await Task.create({
-            _id: new mongoose.Types.ObjectId("66dd82797888aeb9e361e0e3"),
-            title: "test",
-            description: "test",
-            userId: new mongoose.Types.ObjectId("66dd82797888aeb9e361e0e3")
-        });
-        await User.create({
-            _id: new mongoose.Types.ObjectId("66dd824b7888aeb9e361e0d7"),
-            username: "testuser",
-            email: "testuser@example.com",
-            password: await passwordManager.hashPassword("ValidPassword123!"),
-            refreshToken: "validRefreshToken"
-        });
-    });
-    afterEach(() => {
-        jest.restoreAllMocks();
-    });
-
+describe("POST /api/v1/tasks", () => {
     it("should return validation error for invalid input", async () => {
         jest.spyOn(jwtManager, "decodeAuthToken").mockReturnValue(decodedAuthToken);
         jest.spyOn(userService, "findOneById").mockResolvedValue(mockUser);
@@ -71,9 +49,10 @@ describe.only("POST /api/v1/tasks", () => {
         expect(response.body.error).toBeDefined();
     });
 
-    it("should return validation error when same task title enter", async () => {
+    it("should return validation error when same task title is entered", async () => {
         jest.spyOn(jwtManager, "decodeAuthToken").mockReturnValue(decodedAuthToken);
         jest.spyOn(userService, "findOneById").mockResolvedValue(mockUser);
+        jest.spyOn(taskService, "getTaskByUserIdAndTitle").mockResolvedValue(mockTask);
 
         const response = await request(app).post("/api/v1/tasks").set("Authorization", authToken).send({
             title: "test",
@@ -85,9 +64,18 @@ describe.only("POST /api/v1/tasks", () => {
         expect(response.body.message).toBe("Task already exists");
     });
 
-    it("should create task successfully when validation pass", async () => {
+    it("should create task successfully when validation passes", async () => {
         jest.spyOn(jwtManager, "decodeAuthToken").mockReturnValue(decodedAuthToken);
         jest.spyOn(userService, "findOneById").mockResolvedValue(mockUser);
+        jest.spyOn(taskService, "getTaskByUserIdAndTitle").mockResolvedValue(null);
+        jest.spyOn(taskService, "createTask").mockResolvedValue({
+            _id: new mongoose.Types.ObjectId("66dd82797888aeb9e361e0e3"),
+            title: "new test",
+            description: "test",
+            userId: new mongoose.Types.ObjectId("66dd82797888aeb9e361e0e3"),
+            status: "Pending",
+            priority: "High"
+        });
 
         const response = await request(app).post("/api/v1/tasks").set("Authorization", authToken).send({
             title: "new test",
@@ -97,11 +85,13 @@ describe.only("POST /api/v1/tasks", () => {
         expect(response.status).toBe(201);
         expect(response.body.status).toBe(201);
         expect(response.body.message).toBe("Task created successfully");
+        expect(response.body.data.title).toBe("new test");
     });
 
-    it("should handle error when task creation fail", async () => {
+    it("should handle error when task creation fails", async () => {
         jest.spyOn(jwtManager, "decodeAuthToken").mockReturnValue(decodedAuthToken);
         jest.spyOn(userService, "findOneById").mockResolvedValue(mockUser);
+        jest.spyOn(taskService, "getTaskByUserIdAndTitle").mockResolvedValue(null);
         jest.spyOn(taskService, "createTask").mockImplementation(() => {
             throw new Error("Task create fail");
         });
