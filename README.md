@@ -62,6 +62,20 @@ The Task Management API is a RESTful API designed to manage and organize tasks e
     npm run docker:build
     ```
 
+### Running Tests
+
+To run the tests, use:
+
+```bash
+npm run test
+```
+
+For watch mode:
+
+```bash
+npm run test:watch
+```
+
 ## API Documentation
 
 API documentation is available at the `/docs` API endpoint of the project. You can find detailed information about the API endpoints and usage there.
