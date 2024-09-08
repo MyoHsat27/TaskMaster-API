@@ -5,6 +5,7 @@ import * as jwtManager from "../../helpers/jwtManager.js";
 import logger from "../../helpers/logger.js";
 import * as userService from "../../services/v1/userService.js";
 import * as passwordManager from "../../helpers/passwordManager.js";
+import { jest } from "@jest/globals";
 
 const app = createServer();
 

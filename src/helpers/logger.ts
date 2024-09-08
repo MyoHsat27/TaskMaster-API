@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const logFilePath = path.resolve(__dirname, "../logs/app.log");
+path.resolve(__dirname, "../logs/app.log");
 const logStream = createStream("app.log", {
     size: "10M",
     interval: "1d",

@@ -3,16 +3,15 @@ import dotenv from "dotenv";
 import v1Routes from "./routes/v1/index.js";
 import cookieParser from "cookie-parser";
 import logger from "./helpers/logger.js";
-import { dbConnect } from "./config/mongoose.js";
 
 function createServer() {
-    dotenv.config();
+    const environment = process.env.NODE_ENV || "development";
+    dotenv.config({ path: `.env.${environment}` });
 
     const app = express();
 
     app.use(express.json());
     app.use(cookieParser());
-    dbConnect();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {

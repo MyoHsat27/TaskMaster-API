@@ -4,8 +4,14 @@ import User from "../../models/user.js";
 import * as userService from "../../services/v1/userService.js";
 import logger from "../../helpers/logger.js";
 import * as passwordManager from "../../helpers/passwordManager.js";
+import { jest } from "@jest/globals";
 
 const app = createServer();
+
+jest.mock("../../services/v1/userService.js", async () => {
+    const mod = await jest.requireActual("../../services/v1/userService.js");
+    console.log(mod);
+});
 
 describe("POST /users/register", () => {
     beforeAll(async () => {
