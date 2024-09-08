@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import v1Routes from "./routes/v1/index.js";
 import cookieParser from "cookie-parser";
 import logger from "./helpers/logger.js";
+import { dbConnect } from "./config/mongoose.js";
 
 function createServer() {
     dotenv.config();
@@ -11,6 +12,7 @@ function createServer() {
 
     app.use(express.json());
     app.use(cookieParser());
+    dbConnect();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {

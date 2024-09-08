@@ -7,7 +7,7 @@ import { generateAuthToken, generateRefreshToken, decodeRefreshToken } from "../
 
 export const refreshToken = async (req: Request, res: Response) => {
     try {
-        const existingRefreshToken = req.headers["x-refresh"] as string;
+        const existingRefreshToken = req.cookies["refreshToken"];
 
         if (!existingRefreshToken) {
             return HttpBadRequestHandler(res, "No refresh token provided");
@@ -26,13 +26,6 @@ export const refreshToken = async (req: Request, res: Response) => {
         user.refreshToken = newRefreshToken;
         await user.save();
 
-        // Set new tokens in cookies
-        res.cookie("authToken", newAuthToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 24 * 60 * 60 * 1000 // 1 day
-        });
-
         res.cookie("refreshToken", newRefreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
@@ -41,7 +34,9 @@ export const refreshToken = async (req: Request, res: Response) => {
 
         HttpCreatedHandler(res, {
             message: "Token refreshed successfully",
-            success: true
+            success: true,
+            accessToken: newAuthToken,
+            expiresIn: 3600
         });
     } catch (error: unknown) {
         logger.error(error);

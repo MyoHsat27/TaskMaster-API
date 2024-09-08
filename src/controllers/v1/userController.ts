@@ -77,13 +77,6 @@ export const login = async (req: Request, res: Response) => {
         user.refreshToken = refreshToken;
         await user.save();
 
-        // Set tokens into cookies
-        res.cookie("authToken", authToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 24 * 60 * 60 * 1000 // 1 day
-        });
-
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
@@ -92,7 +85,9 @@ export const login = async (req: Request, res: Response) => {
 
         HttpCreatedHandler(res, {
             message: "Login successful",
-            success: true
+            success: true,
+            accessToken: authToken,
+            expiresIn: 3600
         });
     } catch (error: unknown) {
         logger.error(error);

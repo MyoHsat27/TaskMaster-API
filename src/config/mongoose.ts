@@ -9,7 +9,6 @@ export async function dbConnect() {
         const connection = mongoose.connection;
         connection.on("connected", () => {
             logger.info("DB Connected");
-            console.log("DB Connected");
         });
 
         connection.on("error", (err) => {
@@ -17,6 +16,10 @@ export async function dbConnect() {
             process.exit();
         });
     } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+            logger.error(error.message);
+        } else {
+            logger.error("Fail to connect MongoDB");
+        }
     }
 }
