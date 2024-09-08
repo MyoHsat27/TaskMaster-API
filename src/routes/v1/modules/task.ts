@@ -15,7 +15,7 @@ const router: Router = express.Router();
  * /tasks:
  *   get:
  *     summary: Get all tasks with pagination, filtering, and sorting
- *     description: Fetches all tasks for the authenticated user, with options for pagination, filtering by title, and sorting by createdAt, updatedAt, or priority.
+ *     description: Fetches all tasks for the authenticated user, with options for pagination, filtering by title, status, and priority, and sorting by createdAt, updatedAt, or priority.
  *     tags:
  *       - Tasks
  *     parameters:
@@ -24,35 +24,47 @@ const router: Router = express.Router();
  *         schema:
  *           type: integer
  *           default: 1
- *         description: Page number for pagination
+ *         description: Page number for pagination.
  *       - in: query
  *         name: limit
  *         schema:
  *           type: integer
  *           default: 10
- *         description: Number of tasks per page
+ *         description: Number of tasks per page.
  *       - in: query
  *         name: filters[title]
  *         schema:
  *           type: string
- *         description: Filter tasks by title (supports partial matches)
+ *         description: Filter tasks by title (supports partial matches).
+ *       - in: query
+ *         name: filters[status]
+ *         schema:
+ *           type: string
+ *           enum: [pending, in-progress, completed]
+ *         description: Filter tasks by status.
+ *       - in: query
+ *         name: filters[priority]
+ *         schema:
+ *           type: string
+ *           enum: [low, medium, high]
+ *         description: Filter tasks by priority.
  *       - in: query
  *         name: sortBy
  *         schema:
  *           type: string
  *           enum: [createdAt, updatedAt, priority]
  *           default: createdAt
- *         description: Sort tasks by createdAt, updatedAt, or priority
+ *         description: Sort tasks by createdAt, updatedAt, or priority.
  *       - in: query
  *         name: order
  *         schema:
  *           type: string
  *           enum: [asc, desc]
  *           default: asc
- *         description: Sort order (ascending or descending)
+ *         description: Sort order (ascending or descending).
  *     responses:
  *       200:
- *         description: A list of tasks with pagination information
+ *         description: A list of tasks with pagination information.
  *         content:
  *           application/json:
  *             schema:
@@ -81,7 +93,7 @@ const router: Router = express.Router();
  *                       type: integer
  *                       example: 10
  *       401:
- *         description: Unauthorized access, user must be authenticated
+ *         description: Unauthorized access, user must be authenticated.
  *         content:
  *           application/json:
  *             schema:
@@ -94,7 +106,7 @@ const router: Router = express.Router();
  *                   type: number
  *                   example: 401
  *       500:
- *         description: Internal server error
+ *         description: Internal server error.
  *         content:
  *           application/json:
  *             schema:
