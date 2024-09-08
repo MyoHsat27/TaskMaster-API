@@ -24,15 +24,11 @@ The Task Management API is a RESTful API designed to manage and organize tasks e
     npm install
     ```
 
-3. **Create Environment Files**
+3. **Setup Environment Files**
 
-    Make sure to create the required `.env` files in the root directory of your project:
+    Create a `.env` file in the root directory of the project and add the required environment variables. Refer to the `.env.example` file for the required variables.
 
-    - **`.env`**: Default environment settings (if needed).
-    - **`.env.development`**: Settings for local development.
-    - **`.env.production`**: Settings for production environment.
-
-    **Note:** If you are using local development, you might need to configure your application to connect to an online MongoDB service. Update the `MONGO_URL` string in your `.env.development` file with the URL of the online MongoDB service.
+    **Note:** Depending on your development setup (local or Docker), you might need to update the `MONGO_URL` in your `.env` file.
 
 4. **Run the Application**
 

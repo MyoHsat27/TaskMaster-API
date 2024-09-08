@@ -9,8 +9,8 @@ services:
             - 3000:3000
         depends_on:
             - mongo_db
-        environment:
-            NODE_ENV: development
+        env_file:
+            - .env
 
     mongo_db:
         image: mongo:latest
