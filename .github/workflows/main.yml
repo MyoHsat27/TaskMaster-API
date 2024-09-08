@@ -26,6 +26,8 @@ jobs:
 
             - name: Build Docker image
               run: docker build -t task-master:latest .
+            - name: List Docker images
+              run: docker images
 
     deploy_to_docker_hub:
         runs-on: ubuntu-latest
