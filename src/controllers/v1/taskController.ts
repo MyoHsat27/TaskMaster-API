@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import logger from "../../helpers/logger.js";
 import { sendErrorResponse } from "../../helpers/errorHandler.js";
 import { validate } from "../../helpers/zodValidation.js";
 import { taskCreateValidation } from "../../validations/task/taskCreate.js";
@@ -33,7 +32,6 @@ export const getAllTasks = async (req: Request, res: Response) => {
             pagination: tasks.pagination
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };
@@ -64,7 +62,6 @@ export const getOneTaskById = async (req: Request, res: Response) => {
             success: true
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };
@@ -97,7 +94,6 @@ export const createNewTask = async (req: Request, res: Response) => {
             success: true
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };
@@ -148,7 +144,6 @@ export const updateOneTask = async (req: Request, res: Response) => {
             success: true
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };
@@ -182,7 +177,6 @@ export const deleteOneTask = async (req: Request, res: Response) => {
             success: true
         });
     } catch (error: unknown) {
-        logger.error(error);
         sendErrorResponse(res, error);
     }
 };

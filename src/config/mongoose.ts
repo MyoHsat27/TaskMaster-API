@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import logger from "../helpers/logger.js";
+import { throwError } from "../helpers/errorHandler.js";
 
 mongoose.set("strictPopulate", false);
 
@@ -8,15 +8,13 @@ export async function dbConnect() {
         await mongoose.connect(process.env.MONGO_URL!);
         const connection = mongoose.connection;
         connection.on("connected", () => {
-            logger.info("DB Connected");
             console.log("DB Connected");
         });
 
-        connection.on("error", (err) => {
-            logger.error("MongoDB connection error" + err);
+        connection.on("error", () => {
             process.exit();
         });
     } catch (error) {
-        console.log(error);
+        throwError(error);
     }
 }
