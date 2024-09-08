@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 function createServer() {
     const environment = process.env.NODE_ENV || "development";
     if (process.env.NODE_ENV !== "test") {
-        const result = dotenv.config({ path: `.env.${environment}` });
+        dotenv.config({ path: `.env.${environment}` });
     }
 
     const app = express();

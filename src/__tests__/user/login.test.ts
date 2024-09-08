@@ -4,14 +4,14 @@ import User from "../../models/user.js";
 import * as userService from "../../services/v1/userService.js";
 import * as passwordManager from "../../helpers/passwordManager.js";
 import * as jwtManager from "../../helpers/jwtManager.js";
-import TestAgent from "supertest/lib/agent.js";
+import mongoose from "mongoose";
 
 const app = createServer();
 
 describe("POST /users/login", () => {
     beforeAll(async () => {
         await User.deleteMany({});
-        let user = await User.create({
+        await User.create({
             email: "testuser@example.com",
             username: "testuser",
             password: await passwordManager.hashPassword("ValidPassword123!"),
@@ -52,20 +52,37 @@ describe("POST /users/login", () => {
         expect(response.body.message).toBe("email or password is wrong");
     });
 
-    // it("should login successfully and send refresh token in cookies", async () => {
-    //     let response = await request(app).post("/api/v1/users/login").send({
-    //         email: "testuser@example.com",
-    //         password: "ValidPassword123!"
-    //     });
+    it("should login successfully and send refresh token in cookies", async () => {
+        jest.spyOn(passwordManager, "comparePassword").mockResolvedValue(true);
+        const mockUser = new User({
+            _id: new mongoose.Types.ObjectId("66dd82797888aeb9e361e0e3").toString(),
+            username: "testuser2",
+            email: "testuser2@example.com",
+            password: "ValidPassword123!",
+            refreshToken: ""
+        });
 
-    //     console.log(response);
-    //     expect(response.body.message).toBe("Login successful");
+        jest.spyOn(userService, "findOne").mockResolvedValue(mockUser);
+        const newAuthToken = "newAuthToken";
+        const newRefreshToken = "newRefreshToken";
 
-    //     // Check if cookies are set
-    //     const cookies = response.headers["set-cookie"];
-    //     expect(cookies).toBeDefined();
-    //     expect(cookies).toEqual(expect.arrayContaining([expect.stringMatching(/^refreshToken=.*; HttpOnly$/)]));
-    // });
+        jest.spyOn(jwtManager, "generateAuthToken").mockReturnValue(newAuthToken);
+        jest.spyOn(jwtManager, "generateRefreshToken").mockReturnValue(newRefreshToken);
+
+        const response = await request(app).post("/api/v1/users/login").send({
+            email: "testuser@example.com",
+            password: "ValidPassword123!"
+        });
+
+        expect(response.statusCode).toBe(201);
+        expect(response.body.status).toBe(201);
+        expect(response.body.message).toBe("Login successful");
+        expect(response.body.accessToken).toBe(newAuthToken);
+
+        const cookies = response.headers["set-cookie"];
+        expect(cookies).toBeDefined();
+        expect(cookies).toEqual(expect.arrayContaining([expect.stringMatching(/^refreshToken=.*; HttpOnly$/)]));
+    });
 
     it("should handle error when generating tokens fails", async () => {
         jest.spyOn(passwordManager, "comparePassword").mockResolvedValue(true); // Simulate correct password
@@ -86,6 +103,8 @@ describe("POST /users/login", () => {
         });
 
         expect(response.statusCode).toBe(500);
+        expect(response.body.status).toBe(500);
+        expect(response.body.message).toBe("Token generation error");
     });
 
     it("should handle error when hashing password fails", async () => {
@@ -99,5 +118,7 @@ describe("POST /users/login", () => {
         });
 
         expect(response.statusCode).toBe(500);
+        expect(response.body.status).toBe(500);
+        expect(response.body.message).toBe("Hashing error");
     });
 });

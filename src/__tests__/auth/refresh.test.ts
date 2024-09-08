@@ -52,8 +52,8 @@ describe("POST /auth/refresh", () => {
 
         const response = await request(app).post("/api/v1/auth/refresh").set("Cookie", "refreshToken=invalidToken");
 
-        expect(response.status).toBe(500);
-        expect(response.body.status).toBe(500);
+        expect(response.status).toBe(400);
+        expect(response.body.status).toBe(400);
         expect(response.body.message).toBe("Invalid refresh token");
     });
 
@@ -85,7 +85,7 @@ describe("POST /auth/refresh", () => {
 
         const cookies = response.headers["set-cookie"];
         expect(cookies).toBeDefined();
-        expect(cookies).toEqual(expect.arrayContaining([expect.stringMatching(`refreshToken=${newRefreshToken}`)]));
+        expect(cookies).toEqual(expect.arrayContaining([expect.stringMatching(/^refreshToken=.*; HttpOnly$/)]));
     });
 
     it("should handle error when saving user fails", async () => {
